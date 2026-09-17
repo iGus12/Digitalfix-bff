@@ -10,6 +10,12 @@ public class TestController {
 
     @GetMapping("/ping")
     public String ping() {
-        return "¡Hola! El BFF está funcionando. Si ves este mensaje, es porque tu token JWT es válido y pasaste la seguridad.";
+        return "¡Hola! Pasaste la seguridad básica. Tienes un token válido.";
+    }
+
+    // Esta ruta SOLO la puede ver quien tenga el rol "Admin"
+    @GetMapping("/admin/ping")
+    public String adminPing() {
+        return "¡Bienvenido Administrador! Tienes los privilegios correctos en el sistema.";
     }
 }
