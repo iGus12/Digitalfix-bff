@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/bff")
-public class TestController {
+public class testcontroller {
 
     @GetMapping("/ping")
     public String ping() {
