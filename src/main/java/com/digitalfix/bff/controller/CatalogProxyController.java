@@ -15,19 +15,31 @@ public class CatalogProxyController {
     // La dirección interna de tu microservicio de Catálogo
     private final String CATALOG_URL = "http://localhost:8081/api/catalog/services";
 
-    // Reenvía la petición GET
+    // 1. Reenvía la petición GET
     @GetMapping("/services")
-    public ResponseEntity<?> getCatalogServices() {
-        // El BFF va a buscar los datos al puerto 8081 y los devuelve
+    public ResponseEntity<Object> getCatalogServices() {
         ResponseEntity<Object> response = restTemplate.getForEntity(CATALOG_URL, Object.class);
         return ResponseEntity.ok(response.getBody());
     }
 
-    // Reenvía la petición POST
+    // 2. Reenvía la petición POST
     @PostMapping("/services")
     public ResponseEntity<?> createCatalogService(@RequestBody Object item) {
-        // El BFF recibe el JSON del frontend y se lo lanza al puerto 8081
         ResponseEntity<Object> response = restTemplate.postForEntity(CATALOG_URL, item, Object.class);
         return ResponseEntity.ok(response.getBody());
+    }
+
+    // 3. Reenvía la petición PUT (Actualizar)
+    @PutMapping("/services/{id}")
+    public ResponseEntity<Object> updateCatalogService(@PathVariable Long id, @RequestBody Object item) {
+        restTemplate.put(CATALOG_URL + "/" + id, item);
+        return ResponseEntity.ok().body("Repuesto actualizado vía BFF");
+    }
+
+    // 4. Reenvía la petición DELETE (Borrar)
+    @DeleteMapping("/services/{id}")
+    public ResponseEntity<Object> deleteCatalogService(@PathVariable Long id) {
+        restTemplate.delete(CATALOG_URL + "/" + id);
+        return ResponseEntity.ok().body("Repuesto eliminado vía BFF");
     }
 }
