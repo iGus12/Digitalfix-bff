@@ -12,7 +12,7 @@ public class MsDigitalfixBffApplication {
 		SpringApplication.run(MsDigitalfixBffApplication.class, args);
 	}
 
-	// Agregamos esto para que el BFF pueda hacer llamadas a otros microservicios
+
 	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
