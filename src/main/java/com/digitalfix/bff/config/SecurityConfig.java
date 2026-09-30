@@ -26,6 +26,12 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/api/bff/admin/**").hasRole("Admin")
+                
+                .requestMatchers("/api/bff/cliente/**").hasRole("Cliente")
+                .requestMatchers("/api/bff/supervisor/**").hasAnyRole("Supervisor", "Admin")
+                .requestMatchers("/api/bff/catalog/**").hasAnyRole("Supervisor", "Admin")
+                .requestMatchers("/api/bff/audit/**").hasAnyRole("Auditor", "Admin")
+                .requestMatchers("/api/bff/workorders/**").hasAnyRole("Admin", "Supervisor", "Cliente")
                 .anyRequest().authenticated()
             )
             .oauth2ResourceServer(oauth2 -> oauth2
